@@ -17,7 +17,7 @@ connection()
 
 //! Conexion prueba FIREBASE
 const {} =require('./helpers/firebase')
-const {} =require('./controllers/firebaseControllers')
+const {} =require('./controllers/authControllers')
 
 //* Para parsear // traducir
 app.use(express.json());
@@ -28,9 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 //* RUTAS
 
 app.use('/api/v1/entries', require('./routers/routersDatabase'));
+
 app.use('/api/v1/users', require('./routers/routersUsers'));
 
-
+//* app.use('/api/v1/auth', require('./routers/routersAuth'));
 
 //* Listener
 app.listen(port, () => {
