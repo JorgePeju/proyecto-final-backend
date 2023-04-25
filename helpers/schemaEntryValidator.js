@@ -1,4 +1,5 @@
 const createEditEntrySchema = {
+  
   title: {
     in: ['body'],
     isString: true,
