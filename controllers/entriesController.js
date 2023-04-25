@@ -1,4 +1,4 @@
-const Entry = require('../models/entriesMode');
+const Entry = require('../models/entriesModel');
 
 
 const getEntriesAdmin = async (req, res) => {
@@ -6,19 +6,18 @@ const getEntriesAdmin = async (req, res) => {
     try {
 
         const search = new RegExp(`${req.query.search}`, 'i');
-    
+
         if (req.query.search != undefined) {
 
-            const entry  = await Entry.find(
+            const entry = await Entry.find(
 
-                { $or: 
-                    [
-                    { titulo: search }, 
-                    { descripcion: search },
-                    ]
-                },
-
-                { page, limit }
+                {
+                    $or:
+                        [
+                            { titulo: search },
+                            { descripcion: search },
+                        ]
+                }
 
             );
 
@@ -29,7 +28,7 @@ const getEntriesAdmin = async (req, res) => {
 
         } else {
 
-            const entry  = await Entry.find();
+            const entry = await Entry.find();
 
             return res.status(200).json({
                 ok: true,
@@ -58,7 +57,7 @@ const getEntryAdmin = async (req, res) => {
 
         return res.status(200).json({
             ok: true,
-            msg: "Entrada encontrado",
+            msg: "Entrada encontrada",
             data: entry,
         });
 
@@ -79,13 +78,22 @@ const createEntry = async (req, res) => {
 
     try {
 
-        const entry = await newEntry.save();
+        if (!res.errors) {
 
-        return res.status(201).json({
-            ok: true,
-            msg: 'Entrada creado.',
-            entry
-        });
+            const entry = await newEntry.save();
+
+            return res.status(201).json({
+                ok: true,
+                msg: 'Entrada creada.',
+                entry
+            });
+
+        } else {
+
+            const errors = res.errors;
+            return res.status(100, { errors });
+
+        }
 
     } catch (error) {
 
@@ -97,7 +105,6 @@ const createEntry = async (req, res) => {
     }
 };
 
-
 const editEntry = async (req, res) => {
 
     try {
@@ -105,15 +112,21 @@ const editEntry = async (req, res) => {
         const id = req.params.id;
         const body = req.body;
 
-        const entry = await Entry.findOneAndUpdate({ _id: id }, { $set: body });
+        if (!res.errors) {
+            const entry = await Entry.findOneAndUpdate({ _id: id }, { $set: body });
 
-        return res.status(200).json({
+            return res.status(200).json({
+                ok: true,
+                msg: 'Entrada actualizada.',
+                entry
+            });
 
-            ok: true,
-            msg: 'Entrada actualizada.',
-            entry
+        } else {
 
-        });
+            const errors = res.errors;
+            return res.status(100, { errors });
+
+        }
 
     } catch (error) {
 

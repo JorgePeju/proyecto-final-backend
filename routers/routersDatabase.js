@@ -1,16 +1,25 @@
 const express = require('express');
 const router = express.Router();
-
-//* const { validateInputs } = require('../middleware/inputValidator');
-const { createEntry,deleteEntry,editEntry,getEntriesAdmin,getEntryAdmin } = require('../controllers/entriesController');
+const { checkSchema } = require('express-validator');
+const { validateInputs } = require('../middleware/inputValidator');
+const { createEntry, deleteEntry, editEntry, getEntriesAdmin, getEntryAdmin } = require('../controllers/entriesController');
+const { createEditEntrySchema } = require('../helpers/schemaEntryValidator')
 
 router.get('/', getEntriesAdmin);
 
 router.get('/:id', getEntryAdmin);
 
-router.post('/', createEntry);
+router.post('/', [
+    checkSchema(createEditEntrySchema),
+    validateInputs
+],
+    createEntry);
 
-router.put('/:id', editEntry);
+router.put('/:id', [
+    checkSchema(createEditEntrySchema),
+    validateInputs
+],
+    editEntry);
 
 router.delete('/:id', deleteEntry);
 

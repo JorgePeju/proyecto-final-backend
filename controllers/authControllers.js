@@ -4,9 +4,9 @@ const {createUserAdmin}=require('./usersControllers')
 
 const signUp = async (req, res) => {
    
-    // const { email, password } = req.body
-    const email = 'kevin@kevin.es'
-    const password= 'kevin1234'
+    const { email, password } = req.body
+    // const email = 'kevin@kevin.es'
+    // const password= 'kevin1234'
 
     try {
 
@@ -19,6 +19,11 @@ const signUp = async (req, res) => {
         }
         await createUserAdmin(newUserDB)
 
+        return res.status(200).json({
+            ok:true,
+            newUserDB
+        })
+
     } catch (error) {
 
         console.log(error)
@@ -28,9 +33,9 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
 
-    
-    const email = 'kevin@kevin.es'
-    const password= 'kevin1234'
+    const { email, password } = req.body
+    // const email = 'kevin@kevin.es'
+    // const password= 'kevin1234'
 
     try {
 
@@ -55,11 +60,6 @@ const logOut = async (req, res) => {
         console.log(error)
     }
 };
-
-
-
-signUp()
-
 
 module.exports = {
 
