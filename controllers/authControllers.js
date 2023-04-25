@@ -1,28 +1,36 @@
-const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser} = require('firebase/auth');
+const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser } = require('firebase/auth');
 const { authFb } = require('../helpers/firebase')
-const {createUserAdmin}=require('./usersControllers')
+const { createUserAdmin } = require('./usersControllers')
 
 const signUp = async (req, res) => {
-   
+
     const { email, password } = req.body
     // const email = 'kevin@kevin.es'
     // const password= 'kevin1234'
 
     try {
 
-        const userCredentials = await createUserWithEmailAndPassword(authFb, email, password)
-        
-        const newUserDB = {
-            email: email,
-            uid: userCredentials.user.uid  
+        if (!res.errors) {
+
+            const userCredentials = await createUserWithEmailAndPassword(authFb, email, password)
+
+            const newUserDB = {
+                email: email,
+                uid: userCredentials.user.uid
+            }
+
+            await createUserAdmin(newUserDB)
+
+            return res.status(200).json({
+                ok: true,
+                newUserDB
+            })
+            
+        } else {
+            const errors = res.errors;
+            return res.status(100, { errors });
 
         }
-        await createUserAdmin(newUserDB)
-
-        return res.status(200).json({
-            ok:true,
-            newUserDB
-        })
 
     } catch (error) {
 
@@ -40,7 +48,7 @@ const signIn = async (req, res) => {
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
-        
+
     } catch (error) {
 
         console.log(error)
