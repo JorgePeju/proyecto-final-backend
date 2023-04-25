@@ -6,7 +6,7 @@ const checkToken = async (req, res, next) => {
 
     if (!idToken) {
 
-        return res.redirect("/");
+        return ;
 
     }
 
@@ -21,7 +21,6 @@ const checkToken = async (req, res, next) => {
 
         console.log(error);
 
-        res.redirect('/')
 
     }
 };
@@ -39,7 +38,7 @@ const renewToken = async (req, res) => {
 
       console.log(error);
 
-      res.redirect('./', { error: "Token inválido" });
+      { error: "Token inválido" };
 
     }
   };

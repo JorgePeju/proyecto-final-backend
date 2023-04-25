@@ -8,12 +8,16 @@ const { connection } = require('./database/dbConect')
 
 const app = express();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 
 //* CONEXION A BBDD
 connection()
+
+//! Conexion prueba FIREBASE
+const {} =require('./helpers/firebase')
+const {} =require('./controllers/firebaseControllers')
 
 //* Para parsear // traducir
 app.use(express.json());
@@ -23,7 +27,9 @@ app.use(express.urlencoded({ extended: false }));
 
 //* RUTAS
 
-//app.use('/api/v1', require('./routers/routersAdmin'));
+app.use('/api/v1/entries', require('./routers/routersDatabase'));
+app.use('/api/v1/users', require('./routers/routersUsers'));
+
 
 
 //* Listener

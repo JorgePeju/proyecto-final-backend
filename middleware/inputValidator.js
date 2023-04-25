@@ -12,7 +12,7 @@ const validateInputs = (req, res, next) => {
 
     next();
 
-  };
+};
 
 module.exports = {
     validateInputs
