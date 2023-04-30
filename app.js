@@ -31,7 +31,7 @@ app.use('/api/v1/entries', require('./routers/routersDatabase'));
 
 app.use('/api/v1/users', require('./routers/routersUsers'));
 
-//* app.use('/api/v1/auth', require('./routers/routersAuth'));
+app.use('/api/v1/auth', require('./routers/routersAuth'));
 
 //* Listener
 app.listen(port, () => {

@@ -26,11 +26,11 @@ const getUsersAdmin = async (req, res) => {
 
 const getUserAdmin = async (req, res) => {
 
-    const id = req.params.id;
-
+    const email = req.params.id;
+  
     try {
 
-        const user = await User.findById(id);
+        const user = await User.findOne({email: email});
 
         return res.status(200).json({
             ok: true,

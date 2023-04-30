@@ -1,12 +1,11 @@
-const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, deleteUser } = require('firebase/auth');
+const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } = require('firebase/auth');
 const { authFb } = require('../helpers/firebase')
 const { createUserAdmin } = require('./usersControllers')
 
 const signUp = async (req, res) => {
 
     const { email, password } = req.body
-    // const email = 'kevin@kevin.es'
-    // const password= 'kevin1234'
+  
 
     try {
 
@@ -19,14 +18,15 @@ const signUp = async (req, res) => {
                 uid: userCredentials.user.uid
             }
 
-            await createUserAdmin(newUserDB)
+          const user =  await createUserAdmin(newUserDB)
 
             return res.status(200).json({
-                ok: true,
-                newUserDB
+                ok:true,
+                user
             })
             
         } else {
+            
             const errors = res.errors;
             return res.status(100, { errors });
 
@@ -34,24 +34,37 @@ const signUp = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: "Error al crear el usuario",
+            error: error.code
+        });
 
     }
 };
 
 const signIn = async (req, res) => {
-
+ 
     const { email, password } = req.body
-    // const email = 'kevin@kevin.es'
-    // const password= 'kevin1234'
+    console.log(req.body)
 
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
 
+        return res.status(200).json({
+            ok:true,
+            user: userCredentials.user.email
+        })
+        
     } catch (error) {
 
-        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: "Error al inciar sesion",
+            error: error.code
+        });
+
 
     }
 };
@@ -65,7 +78,12 @@ const logOut = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        return res.status(500).json({
+            ok: false,
+            msg: "Error al crear el usuario",
+            error: error.code
+        });
+
     }
 };
 
