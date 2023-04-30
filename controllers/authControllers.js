@@ -1,20 +1,21 @@
 const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } = require('firebase/auth');
 const { authFb } = require('../helpers/firebase')
-const { createUserAdmin } = require('./usersControllers')
+const { createUserAdmin, getUserBody } = require('./usersControllers')
 
 const signUp = async (req, res) => {
 
-    const { email, password } = req.body
-  
-
     try {
 
+        const { email, password, username } = req.body
+
         if (!res.errors) {
-
+            
             const userCredentials = await createUserWithEmailAndPassword(authFb, email, password)
-
+            
             const newUserDB = {
                 email: email,
+                username: username,
+                role: 'user',
                 uid: userCredentials.user.uid
             }
 
@@ -28,7 +29,7 @@ const signUp = async (req, res) => {
         } else {
             
             const errors = res.errors;
-            return res.status(100, { errors });
+            return res.status(200, { errors });
 
         }
 
@@ -46,15 +47,16 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
  
     const { email, password } = req.body
-    console.log(req.body)
+    
 
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
-
+      
+        const user = await getUserBody(email)
         return res.status(200).json({
             ok:true,
-            user: userCredentials.user.email
+            user
         })
         
     } catch (error) {

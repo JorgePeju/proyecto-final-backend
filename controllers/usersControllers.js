@@ -48,6 +48,27 @@ const getUserAdmin = async (req, res) => {
     }
 };
 
+
+const getUserBody = async (req, res) => {
+
+    const email = req;
+  
+    try {
+
+        const user = await User.findOne({email: email});
+
+        return user
+
+    } catch (error) {
+
+        return res.status(500).json({
+            ok: false,
+            msg: "No se ha podido obtener el usuario",
+        });
+
+    }
+};
+
 const createUserAdmin = async (newUserDB) => {
 
     const newUser = new User(newUserDB);
@@ -56,10 +77,7 @@ const createUserAdmin = async (newUserDB) => {
 
         const user = await newUser.save();
 
-        return res.status(200).json({
-            ok:true,
-            user
-        })
+        return user
         
     } catch (error) {
 
@@ -132,6 +150,7 @@ module.exports = {
    getUserAdmin,
    createUserAdmin,
    deleteUserAdmin,
-   editUserAdmin
+   editUserAdmin,
+   getUserBody
    
 }

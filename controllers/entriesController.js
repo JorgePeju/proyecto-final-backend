@@ -73,9 +73,9 @@ const getEntryAdmin = async (req, res) => {
 
 
 const createEntry = async (req, res) => {
-
+   
     const newEntry = new Entry(req.body);
-
+    console.log(newEntry)
     try {
 
         if (!res.errors) {
