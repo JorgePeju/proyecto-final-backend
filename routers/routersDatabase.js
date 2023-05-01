@@ -15,10 +15,10 @@ router.post('/', //[
 // ],
     createEntry);
 
-router.put('/:id', [
-    checkSchema(createEditEntrySchema),
-    validateInputs
-],
+router.put('/:id', //[
+//     checkSchema(createEditEntrySchema),
+//     validateInputs
+// ],
     editEntry);
 
 router.delete('/:id', deleteEntry);
