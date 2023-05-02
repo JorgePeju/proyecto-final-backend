@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const { admin } = require('../helpers/firebase');
-
+const {deleteEntriesByUser}=require('../controllers/entriesController')
 const getUsersAdmin = async (req, res) => {
 
     try {
@@ -124,12 +124,14 @@ const deleteUserAdmin = async (req, res) => {
 
         const id = req.params.id;
         const user = await User.findOneAndDelete({ _id: id });
-
+     
+        const deletedEntriesCount = await deleteEntriesByUser(id);
         await admin.auth().deleteUser(user.uid)
 
         return res.status(200).json({
             ok:true,
-            user
+            user,
+            deletedEntriesCount
         })
        
     } catch (error) {
@@ -144,6 +146,8 @@ const deleteUserAdmin = async (req, res) => {
 
 
 
+
+
 module.exports = {
 
    getUsersAdmin,
@@ -151,6 +155,6 @@ module.exports = {
    createUserAdmin,
    deleteUserAdmin,
    editUserAdmin,
-   getUserBody
-   
+   getUserBody,
+
 }

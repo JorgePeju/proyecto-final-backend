@@ -165,6 +165,43 @@ const deleteEntry = async (req, res) => {
 
 };
 
+const deleteEntriesByUser = async (id) => {
+
+    try {
+
+      const result = await Entry.deleteMany({ user: id });
+      return result.deletedCount;
+
+    } catch (error) {
+        
+      throw new Error('Error al borrar las entradas del usuario.');
+    }
+  };
+
+
+  const deleteEntriesByUserId = async (req, res) => {
+
+    try {
+
+      const id = req.params.id;
+  
+      const deletedEntriesCount = await deleteEntriesByUser(id);
+  
+      return res.status(200).json({
+        ok: true,
+        deletedEntriesCount
+      });
+
+    } catch (error) {
+
+      return res.status(500).json({
+        ok: false,
+        msg: 'Error al borrar las entradas del usuario.'
+      });
+
+    }
+  };
+
 
 
 module.exports = {
@@ -174,4 +211,6 @@ module.exports = {
     createEntry,
     editEntry,
     deleteEntry,
+    deleteEntriesByUser,
+    deleteEntriesByUserId
 }

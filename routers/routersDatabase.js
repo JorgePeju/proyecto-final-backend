@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { checkSchema } = require('express-validator');
 const { validateInputs } = require('../middleware/inputValidator');
-const { createEntry, deleteEntry, editEntry, getEntriesAdmin, getEntryAdmin } = require('../controllers/entriesController');
+const { createEntry, deleteEntry, editEntry, getEntriesAdmin, getEntryAdmin, deleteEntriesByUserId } = require('../controllers/entriesController');
 const { createEditEntrySchema } = require('../helpers/schemaEntryValidator')
 
 router.get('/', getEntriesAdmin);
@@ -22,5 +22,7 @@ router.put('/:id', //[
     editEntry);
 
 router.delete('/:id', deleteEntry);
+
+router.delete('/user/:id', deleteEntriesByUserId);
 
 module.exports = router;
