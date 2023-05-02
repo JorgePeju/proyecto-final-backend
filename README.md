@@ -25,6 +25,10 @@
 ````
 - DELETE: http://localhost:3000/api/v1/entries/:id
 ````  
+-Eliminar todas las entradas de un usuario por id:
+````
+- DELETE: http://localhost:3000/api/v1/entries/user/
+````  
 ## Base de datos de los usuarios:
 - Obtener todos los usuarios:
 ````
