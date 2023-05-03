@@ -69,7 +69,7 @@ const getEntryAdmin = async (req, res) => {
 const createEntry = async (req, res) => {
    
     const newEntry = new Entry(req.body);
-
+  
     try {
 
         if (!res.errors) {
@@ -135,7 +135,7 @@ const editEntry = async (req, res) => {
 
 
 const deleteEntry = async (req, res) => {
-
+ 
     try {
 
         const id = req.params.id;

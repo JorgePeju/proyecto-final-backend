@@ -50,7 +50,7 @@ const signIn = async (req, res) => {
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
-      
+        console.log(userCredentials)
         const user = await getUserBody(email)
         return res.status(200).json({
             ok:true,
