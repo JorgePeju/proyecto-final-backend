@@ -40,7 +40,6 @@ const signUp = async (req, res) => {
             msg: "Error al crear el usuario",
             error: error.code
         });
-
     }
 };
 
@@ -48,7 +47,6 @@ const signIn = async (req, res) => {
  
     const { email, password } = req.body
     
-
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
@@ -66,8 +64,6 @@ const signIn = async (req, res) => {
             msg: "Error al inciar sesion",
             error: error.code
         });
-
-
     }
 };
 
@@ -85,7 +81,6 @@ const logOut = async (req, res) => {
             msg: "Error al crear el usuario",
             error: error.code
         });
-
     }
 };
 

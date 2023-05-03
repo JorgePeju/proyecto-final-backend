@@ -1,6 +1,5 @@
 const Entry = require('../models/entriesModel');
 
-
 const getEntriesAdmin = async (req, res) => {
 
     try {
@@ -12,13 +11,11 @@ const getEntriesAdmin = async (req, res) => {
             const entry = await Entry.find(
 
                 {
-                    $or:
-                        [
+                    $or: [
                             { titulo: search },
                             { descripcion: search },
                         ]
                 }
-
             );
 
             return res.status(200).json({
@@ -34,7 +31,6 @@ const getEntriesAdmin = async (req, res) => {
                 ok: true,
                 data: entry
             });
-
         };
 
     } catch (error) {
@@ -43,7 +39,6 @@ const getEntriesAdmin = async (req, res) => {
             ok: false,
             msg: "Error al obtener la entrada",
         });
-
     }
 };
 
@@ -67,7 +62,6 @@ const getEntryAdmin = async (req, res) => {
             ok: false,
             msg: "No se ha podido acceder a la entrada",
         });
-
     }
 };
 
@@ -75,7 +69,7 @@ const getEntryAdmin = async (req, res) => {
 const createEntry = async (req, res) => {
    
     const newEntry = new Entry(req.body);
-    console.log(newEntry)
+
     try {
 
         if (!res.errors) {
@@ -113,6 +107,7 @@ const editEntry = async (req, res) => {
         const body = req.body;
 
         if (!res.errors) {
+
             const entry = await Entry.findOneAndUpdate({ _id: id }, { $set: body });
 
             return res.status(200).json({
@@ -184,7 +179,6 @@ const deleteEntriesByUser = async (id) => {
     try {
 
       const id = req.params.id;
-  
       const deletedEntriesCount = await deleteEntriesByUser(id);
   
       return res.status(200).json({
@@ -198,14 +192,10 @@ const deleteEntriesByUser = async (id) => {
         ok: false,
         msg: 'Error al borrar las entradas del usuario.'
       });
-
     }
   };
 
-
-
 module.exports = {
-
     getEntryAdmin,
     getEntriesAdmin,
     createEntry,
