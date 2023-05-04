@@ -15,10 +15,6 @@ app.use(cors());
 //* CONEXION A BBDD
 connection()
 
-//! Conexion prueba FIREBASE
-const {} =require('./helpers/firebase')
-const {} =require('./controllers/authControllers')
-
 //* Para parsear // traducir
 app.use(express.json());
 

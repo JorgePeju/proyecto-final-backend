@@ -3,8 +3,7 @@ const router = express.Router();
 const { checkSchema } = require('express-validator');
 const { validateInputs } = require('../middleware/inputValidator');
 const { createEditUserSchema } = require('../helpers/schemaUserValidator')
-const { checkToken }= require('../middleware/validateToken')
-const {signIn, logOut, signUp}=require('../controllers/authControllers')
+const {signIn, logOut, signUp, verifyAndRenewToken}=require('../controllers/authControllers')
 
 router.post('/login', signIn);
 
@@ -17,6 +16,6 @@ signUp );
 
 router.get('/logout', logOut);
 
-// router.get('/renew', getEntriesAdmin);
+router.post('/token', verifyAndRenewToken);
 
 module.exports = router;

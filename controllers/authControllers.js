@@ -1,6 +1,7 @@
 const { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } = require('firebase/auth');
 const { authFb } = require('../helpers/firebase')
 const { createUserAdmin, getUserBody } = require('./usersControllers')
+const { admin } = require('../helpers/firebase');
 
 const signUp = async (req, res) => {
 
@@ -46,9 +47,9 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
- 
-    const { email, password } = req.body
     
+    const { email, password } = req.body
+  
     try {
         
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
@@ -71,7 +72,6 @@ const signIn = async (req, res) => {
     }
 };
 
-
 const logOut = async (req, res) => {
 
     try {
@@ -88,12 +88,68 @@ const logOut = async (req, res) => {
     }
 };
 
+
+const verifyAndRenewToken = async (req, res) => {
+
+    const idToken = req.body.token;
+    if (!idToken) {
+
+      const uid = req.body.uid;
+
+      if (!uid) {
+        return res.status(400).json({ 
+            isValid: false, 
+            error: "No se ha encontrado ni token ni usuario" 
+        });
+      }
+  
+      try {
+
+        const user = await admin.auth().getUser(uid);
+        const renewedToken = await admin.auth().createCustomToken(uid);
+  
+        res.status(200).json({ 
+            isValid: true, 
+            token: renewedToken 
+        });
+      } catch (error) {
+
+        res.status(401).json({ 
+            isValid: false, 
+            error: "Usuario no válido" 
+        });
+
+      }
+  
+    } else {
+
+      try {
+
+        await admin.auth().verifyIdToken(idToken);
+
+        res.status(200).json({ 
+            isValid: true 
+        });
+
+      } catch (error) {
+
+        console.log(error);
+        res.status(401).json({
+             isValid: false, 
+             error: "El token no es válido" 
+        });
+      }
+    }
+};;
+  
+
+
 module.exports = {
 
     signIn,
     logOut,
-    signUp
-
+    signUp,
+    verifyAndRenewToken
 };
 
 //* COOKIE PARA REGISTRO:
