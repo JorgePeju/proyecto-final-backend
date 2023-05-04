@@ -1,5 +1,4 @@
 const Entry = require('../models/entriesModel');
-const User = require('../models/userModel');
 
 const getEntriesAdmin = async (req, res) => {
 
@@ -86,7 +85,7 @@ const createEntry = async (req, res) => {
         } else {
 
             const errors = res.errors;
-            return res.status(100, { errors });
+            return res.status(200, { errors });
 
         }
 
@@ -120,7 +119,7 @@ const editEntry = async (req, res) => {
         } else {
 
             const errors = res.errors;
-            return res.status(100, { errors });
+            return res.status(200, { errors, id });
 
         }
 

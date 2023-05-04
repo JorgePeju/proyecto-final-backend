@@ -145,9 +145,6 @@ const deleteUserAdmin = async (req, res) => {
 };
 
 
-
-
-
 module.exports = {
 
    getUsersAdmin,
