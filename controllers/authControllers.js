@@ -92,35 +92,36 @@ const logOut = async (req, res) => {
 const verifyAndRenewToken = async (req, res) => {
 
     const idToken = req.body.token;
-    if (!idToken) {
+    const uid = req.body.uid;
 
-      const uid = req.body.uid;
+    if (!idToken && !uid ) {
 
-      if (!uid) {
         return res.status(400).json({ 
             isValid: false, 
             error: "No se ha encontrado ni token ni usuario" 
         });
-      }
-  
-      try {
 
-        const user = await admin.auth().getUser(uid);
+    } else if (idToken && uid) {
+
+       try {
+
+        await admin.auth().getUser(uid);
         const renewedToken = await admin.auth().createCustomToken(uid);
   
         res.status(200).json({ 
             isValid: true, 
-            token: renewedToken 
+            token: renewedToken,
+            msg: "Usuario y token validados"
         });
+
       } catch (error) {
 
         res.status(401).json({ 
             isValid: false, 
             error: "Usuario no válido" 
         });
+      } 
 
-      }
-  
     } else {
 
       try {
@@ -128,19 +129,19 @@ const verifyAndRenewToken = async (req, res) => {
         await admin.auth().verifyIdToken(idToken);
 
         res.status(200).json({ 
-            isValid: true 
+            isValid: true,
+            msg: 'Token verificado'
         });
 
       } catch (error) {
 
-        console.log(error);
         res.status(401).json({
              isValid: false, 
              error: "El token no es válido" 
         });
       }
     }
-};;
+};
   
 
 
