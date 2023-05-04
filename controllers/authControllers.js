@@ -98,7 +98,7 @@ const verifyAndRenewToken = async (req, res) => {
 
         return res.status(400).json({ 
             isValid: false, 
-            error: "No se ha encontrado ni token ni usuario" 
+            msg: "No se ha encontrado ni token ni usuario" 
         });
 
     } else if (idToken && uid) {
@@ -118,7 +118,7 @@ const verifyAndRenewToken = async (req, res) => {
 
         res.status(401).json({ 
             isValid: false, 
-            error: "Usuario no válido" 
+            msg: "Usuario no válido" 
         });
       } 
 
@@ -137,7 +137,7 @@ const verifyAndRenewToken = async (req, res) => {
 
         res.status(401).json({
              isValid: false, 
-             error: "El token no es válido" 
+             msg: "El token no es válido" 
         });
       }
     }
