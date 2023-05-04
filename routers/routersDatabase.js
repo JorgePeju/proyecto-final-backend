@@ -7,6 +7,7 @@ const { createEditEntrySchema } = require('../helpers/schemaEntryValidator')
 
 router.get('/', getEntriesAdmin);
 
+
 router.get('/:id', getEntryAdmin);
 
 router.post('/', //[
@@ -23,6 +24,6 @@ router.put('/:id', //[
 
 router.delete('/:id', deleteEntry);
 
-router.delete('/user/:id', deleteEntriesByUserId);
+router.delete('/users/:id', deleteEntriesByUserId);
 
 module.exports = router;

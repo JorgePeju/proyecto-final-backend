@@ -1,4 +1,5 @@
 const Entry = require('../models/entriesModel');
+const User = require('../models/userModel');
 
 const getEntriesAdmin = async (req, res) => {
 
@@ -25,7 +26,7 @@ const getEntriesAdmin = async (req, res) => {
 
         } else {
 
-            const entry = await Entry.find();
+            const entry = await Entry.find().populate('user', 'email role username date');
 
             return res.status(200).json({
                 ok: true,
@@ -194,6 +195,9 @@ const deleteEntriesByUser = async (id) => {
       });
     }
   };
+
+
+
 
 module.exports = {
     getEntryAdmin,

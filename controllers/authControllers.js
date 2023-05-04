@@ -11,6 +11,7 @@ const signUp = async (req, res) => {
         if (!res.errors) {
             
             const userCredentials = await createUserWithEmailAndPassword(authFb, email, password)
+            const token = userCredentials._tokenResponse.idToken
             
             const newUserDB = {
                 email: email,
@@ -20,10 +21,11 @@ const signUp = async (req, res) => {
             }
 
           const user =  await createUserAdmin(newUserDB)
-
+        
             return res.status(200).json({
                 ok:true,
-                user
+                user,
+                token
             })
             
         } else {
@@ -48,13 +50,15 @@ const signIn = async (req, res) => {
     const { email, password } = req.body
     
     try {
-
+        
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
-        console.log(userCredentials)
+        const token = userCredentials._tokenResponse.idToken
+       
         const user = await getUserBody(email)
         return res.status(200).json({
             ok:true,
-            user
+            user,
+            token
         })
         
     } catch (error) {
