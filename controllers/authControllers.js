@@ -146,7 +146,6 @@ const verifyAndRenewToken = async (req, res) => {
 
 
 module.exports = {
-
     signIn,
     logOut,
     signUp,

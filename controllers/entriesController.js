@@ -175,9 +175,9 @@ const deleteEntriesByUser = async (id) => {
 
 
   const deleteEntriesByUserId = async (req, res) => {
-
+    console.log(req.param.id)
     try {
-
+        
       const id = req.params.id;
       const deletedEntriesCount = await deleteEntriesByUser(id);
   
