@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +20,8 @@
     "firebase": "^9.20.0",
     "firebase-admin": "^11.7.0",
     "mongoose": "^7.0.4"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
   }
 }
