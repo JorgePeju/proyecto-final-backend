@@ -192,6 +192,27 @@ const deleteEntry = async (req, res) => {
 };
 
 /**
+ * Eliminar todas las entradas de un usuario por su ID, se utiliza en el siguiente controlador y en el de borrar usuarios.
+ * @function deleteEntriesByUserId
+ * @async
+ * @param {Object} req Objeto de solicitud.
+ * @param {Object} res Objeto de respuesta
+ * @return {json} Devuelve un objeto
+ */
+const deleteEntriesByUser = async (id) => {
+
+    try {
+
+      const result = await Entry.deleteMany({ user: id });
+      return result.deletedCount;
+
+    } catch (error) {
+        
+      throw new Error('Error al borrar las entradas del usuario.');
+    }
+};
+
+/**
  * Eliminar todas las entradas de un usuario por su ID utilizando la función anterior.
  * @function deleteEntriesByUserId
  * @async
@@ -204,7 +225,7 @@ const deleteEntriesByUserId = async (req, res) => {
     try {
         
       const id = req.params.id;
-      const deletedEntriesCount = await Entry.deleteMany({ user: id });
+      const deletedEntriesCount = await deleteEntriesByUser(id)
   
       return res.status(200).json({
         ok: true,
