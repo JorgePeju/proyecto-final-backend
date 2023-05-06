@@ -131,7 +131,7 @@ const editEntry = async (req, res) => {
 
         const id = req.params.id;
         const body = req.body;
-
+    
         if (!res.errors) {
 
             const entry = await Entry.findOneAndUpdate({ _id: id }, { $set: body });
@@ -143,9 +143,9 @@ const editEntry = async (req, res) => {
             });
 
         } else {
-
+            console.log(res.errors)
             const errors = res.errors;
-            return res.status(200, { errors, id });
+            return res.status(200).json({ errors}) ;
 
         }
 
