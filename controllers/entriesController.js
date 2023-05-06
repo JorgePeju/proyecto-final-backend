@@ -103,8 +103,9 @@ const createEntry = async (req, res) => {
 
         } else {
 
+            console.log(res.errors)
             const errors = res.errors;
-            return res.status(200, { errors });
+            return res.status(200).json({ errors}) ;
 
         }
 
@@ -143,6 +144,7 @@ const editEntry = async (req, res) => {
             });
 
         } else {
+
             console.log(res.errors)
             const errors = res.errors;
             return res.status(200).json({ errors}) ;

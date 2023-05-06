@@ -10,10 +10,10 @@ router.get('/', getEntriesAdmin);
 
 router.get('/:id', getEntryAdmin);
 
-router.post('/', //[
-//     checkSchema(createEditEntrySchema),
-//     validateInputs
-// ],
+router.post('/', [
+    checkSchema(createEditEntrySchema),
+    validateInputs
+],
     createEntry);
 
 router.put('/:id', [
