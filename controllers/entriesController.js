@@ -9,14 +9,14 @@ const Entry = require('../models/entriesModel');
  * @return {json}
  */
 const getEntriesAdmin = async (req, res) => {
-
+    console.log(req.query.search)
     try {
 
         const search = new RegExp(`${req.query.search}`, 'i');
 
         if (req.query.search != undefined) {
 
-            const entry = await Entry.find({ $or: [{ titulo: search }, { descripcion: search }]});
+            const entry = await Entry.find({ $or: [{ titulo: search }, { descripcion: search }, {iconType: search}]});
             /**
              * @typedef {Object} json
              * @property {boolean} ok - Indica cómo fue la solicitud.

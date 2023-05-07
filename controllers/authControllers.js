@@ -102,6 +102,10 @@ const logOut = async (req, res) => {
     try {
 
         await signOut(authFb)
+        return res.status(200).json({
+            ok:true,
+            mgs: 'Cerrada sesión de usuario'
+        })
 
     } catch (error) {
 
