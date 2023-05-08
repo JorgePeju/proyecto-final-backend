@@ -127,10 +127,12 @@ const editUserAdmin = async (req, res) => {
         const body = req.body;
         const user = await User.findOneAndUpdate({ _id: id }, { $set: body });
         
-        await admin.auth().updateUser(user.uid, {
-            email: body.email,
-            password: body.password
-        });
+        if (!body.role) {
+            await admin.auth().updateUser(user.uid, {
+              email: body.email,
+              password: body.password
+            });
+          }
         const data = await User.findOne({_id: id});
       
         return res.status(200).json({
