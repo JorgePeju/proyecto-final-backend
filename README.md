@@ -10,8 +10,11 @@
 - Obtener una entrada por ID:
 ````
 - GET: http://localhost:3000/api/v1/entries/:id
-````  
-
+```` 
+- Obtener entradas por query search:
+````
+http://localhost:3000/api/v1/entries/?search=tower
+````
 - Crear una entrada:
 ````
 - POST: http://localhost:3000/api/v1/entries
@@ -64,4 +67,8 @@
 - Renovar token de usuario:
 ````
 - POST: http://localhost:3000/api/v1/auth/renew
+````
+- Logout de un usuario:
+````
+http://localhost:3000/api/v1/auth/logout
 ````
