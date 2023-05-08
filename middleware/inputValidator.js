@@ -7,7 +7,7 @@ const validateInputs = (req, res, next) => {
     if (!errors.isEmpty()) {
 
         res.errors = errors.array();
-       console.log('aqui')
+
     }
 
     next();

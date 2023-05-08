@@ -156,8 +156,9 @@ const editUserAdmin = async (req, res) => {
 const deleteUserAdmin = async (req, res) => {
 
     try {
-
+        
         const id = req.params.id;
+        console.log(id)
         const user = await User.findOneAndDelete({ _id: id });
         const deletedEntriesCount = await deleteEntriesByUser(id);
         await admin.auth().deleteUser(user.uid)

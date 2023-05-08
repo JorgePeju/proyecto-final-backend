@@ -9,7 +9,7 @@ const Entry = require('../models/entriesModel');
  * @return {json}
  */
 const getEntriesAdmin = async (req, res) => {
-    console.log(req.query.search)
+   
     try {
 
         const search = new RegExp(`${req.query.search}`, 'i');
@@ -145,7 +145,7 @@ const editEntry = async (req, res) => {
 
         } else {
 
-            console.log(res.errors)
+         
             const errors = res.errors;
             return res.status(200).json({ errors}) ;
 
