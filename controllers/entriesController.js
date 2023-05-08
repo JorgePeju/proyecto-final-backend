@@ -60,7 +60,7 @@ const getEntryAdmin = async (req, res) => {
 
     try {
 
-        const entry = await Entry.findById(id);
+        const entry = await Entry.findById(id).populate('user', 'email role username date');
 
         return res.status(200).json({
             ok: true,

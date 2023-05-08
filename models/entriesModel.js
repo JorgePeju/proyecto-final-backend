@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const EntrySchema = new Schema({
+    
     title:{
         type: String,
         // required: true,
