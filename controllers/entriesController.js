@@ -1,8 +1,8 @@
 const Entry = require('../models/entriesModel');
 
 /**
- * Obtener todas las reservas de la base de datos.
- * @function getReservations
+ * Obtener todas las entradas de la base de datos.
+ * @function getEntriesAdmin
  * @async
  * @param {Object} req Objeto de solicitud.
  * @param {Object} res Objeto de respuesta
